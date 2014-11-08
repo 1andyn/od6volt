@@ -702,6 +702,20 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 		printf("Voltage step: %f volts\n", vstep);
 	}
 
+	int * voltageCurr = 0, * voltageDef = 0;
+	if( ADL_OK != ADL_Overdrive6_VoltageControl_Get(adapterId, voltageCurr, voltageDef)) {
+		printf("Failed to retrieve voltage control data\n");
+		return 0;
+	} else {
+
+		double vcurr, vdef;
+		vcurr = (double)*voltageCurr/VOLTAGE_DENOMINATOR;
+		vdef = (double)*voltageDef/VOLTAGE_DENOMINATOR;
+
+		printf("Current Voltage: %f volts\n", vcurr);
+		printf("Default Voltage: %f volts\n", vdef);
+	}
+
 	char input_str[10] = "";
 
 	if ( ADL_OD6_TCCAPS_FANSPEED_CONTROL == (thermalControllerCaps.iCapabilities & ADL_OD6_TCCAPS_FANSPEED_CONTROL) && 
