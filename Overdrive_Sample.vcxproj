@@ -86,7 +86,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Adl2_Sample.cpp" />
     <ClCompile Include="Overdrive_Sample.cpp" />
   </ItemGroup>
   <ItemGroup>

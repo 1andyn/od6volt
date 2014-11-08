@@ -70,6 +70,7 @@ typedef int ( *ADL_OVERDRIVE6_STATE_SET )(int iAdapterIndex, int iStateType, ADL
 typedef int ( *ADL_OVERDRIVE6_POWERCONTROL_SET )(int iAdapterIndex, int iValue);
 typedef int ( *ADL_OVERDRIVE6_VOLTAGECONTROLINFO_GET)(int iAdapterIndex, ADLOD6VoltageControlInfo *lpVoltageControlInfo);
 typedef int ( *ADL_OVERDRIVE6_VOLTAGECONTROL_GET)(int iAdapterIndex, int *lpCurrentValue, int * lpDefaultValue);
+typedef int ( *ADL_OVERDRIVE6_VOLTAGECONTROL_SET)(int iAdapterIndex, int ivalue);
 
 // Memory allocation function
 void* __stdcall ADL_Main_Memory_Alloc ( int iSize )
@@ -486,7 +487,9 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 	ADL_OVERDRIVE6_FANSPEED_SET ADL_Overdrive6_FanSpeed_Set;
 	ADL_OVERDRIVE6_STATE_SET ADL_Overdrive6_State_Set;
 	ADL_OVERDRIVE6_POWERCONTROL_SET ADL_Overdrive6_PowerControl_Set;
-	ADL_Overdrive6_VoltageControlInfo_Get ADL_Overdrive6_VoltageControlInfo_Get;
+	ADL_OVERDRIVE6_VOLTAGECONTROLINFO_GET ADL_Overdrive6_VoltageControlInfo_Get;
+	ADL_OVERDRIVE6_VOLTAGECONTROL_GET ADL_Overdrive6_VoltageControl_Get;
+	ADL_OVERDRIVE6_VOLTAGECONTROL_SET ADL_Overdrive6_VoltageControl_Set;
 	
 
 
@@ -502,6 +505,9 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 	ADL_Overdrive6_FanSpeed_Set  = (ADL_OVERDRIVE6_FANSPEED_SET)GetProcAddress(hDLL, "ADL_Overdrive6_FanSpeed_Set");
 	ADL_Overdrive6_State_Set = (ADL_OVERDRIVE6_STATE_SET)GetProcAddress(hDLL, "ADL_Overdrive6_State_Set");
 	ADL_Overdrive6_PowerControl_Set = (ADL_OVERDRIVE6_POWERCONTROL_SET) GetProcAddress(hDLL, "ADL_Overdrive6_PowerControl_Set");
+	ADL_Overdrive6_VoltageControlInfo_Get = (ADL_OVERDRIVE6_VOLTAGECONTROLINFO_GET) GetProcAddress(hDLL, "ADL_Overdrive6_VoltageControlInfo_Get");
+	ADL_Overdrive6_VoltageControl_Get = (ADL_OVERDRIVE6_VOLTAGECONTROL_GET) GetProcAddress(hDLL, "ADL_Overdrive6_VoltageControl_Get");
+	ADL_Overdrive6_VoltageControl_Set = (ADL_OVERDRIVE6_VOLTAGECONTROL_SET) GetProcAddress(hDLL, "ADL_Overdrive6_VoltageControl_Set");
 
 	if (NULL == ADL_Overdrive6_FanSpeed_Get ||
 		NULL == ADL_Overdrive6_ThermalController_Caps ||
@@ -906,5 +912,7 @@ int main(int argc, _TCHAR* argv[])
 		else
 			printf("Unsupported Overdrive version \n");
 
+		printf("Press any key to close. \n");
+		getchar();
 }
 

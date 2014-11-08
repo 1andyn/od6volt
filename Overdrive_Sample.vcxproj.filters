@@ -18,9 +18,6 @@
     <ClCompile Include="Overdrive_Sample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Adl2_Sample.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
