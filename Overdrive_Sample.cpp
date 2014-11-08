@@ -32,8 +32,7 @@
 
 #define AMDVENDORID             (1002)
 #define ADL_WARNING_NO_DATA      -100
-
-
+#define VOLTAGE_DENOMINATOR		100000
 
 // Definitions of the used function pointers. Add more if you use other ADL APIs
 typedef int ( *ADL_MAIN_CONTROL_CREATE )(ADL_MAIN_MALLOC_CALLBACK, int );
@@ -353,6 +352,7 @@ int Overdrive5Sample(int adapterId, HINSTANCE hDLL)
 	{
 		printf ("Current Engine Clock: %d persent\n", activity.iActivityPercent);
 	}
+
 	
 	char input_str[10] = "";
 
@@ -681,8 +681,26 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 		printf ("Power Control range: %d...%d with step of %d \n", powerControlInfo.iMinValue, powerControlInfo.iMaxValue, powerControlInfo.iStepValue);
 		printf ("Power Control current level: %d \n", powerControlCurrent);
 		printf ("Power Control default level: %d \n", powerControlDefault);
-	}	
+	}
 
+	ADLOD6VoltageControlInfo * voltageControlInfo = (ADLOD6VoltageControlInfo*) malloc (sizeof(ADLOD6VoltageControlInfo));
+	memset ((void*)voltageControlInfo, 0, sizeof(ADLOD6VoltageControlInfo));
+	
+	if (ADL_OK != ADL_Overdrive6_VoltageControlInfo_Get(adapterId, voltageControlInfo)) {
+		printf("Failed to get voltage control info");
+		return 0;
+	} else {
+		/* Was able to acquire voltage control information */
+
+		double vmin, vmax, vstep;
+		vmin = (double)voltageControlInfo->iMinValue;
+		vmax = (double)voltageControlInfo->iMaxValue;
+		vstep = (double)voltageControlInfo->iStepValue;
+
+		printf("Voltage min: %f \n", vmin);
+		printf("Voltage max: %f \n", vmax);
+		printf("Voltage step: %f \n", vstep);
+	}
 
 	char input_str[10] = "";
 
