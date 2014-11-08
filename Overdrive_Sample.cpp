@@ -32,7 +32,7 @@
 
 #define AMDVENDORID             (1002)
 #define ADL_WARNING_NO_DATA      -100
-#define VOLTAGE_DENOMINATOR		100000
+#define VOLTAGE_DENOMINATOR		1000000
 
 // Definitions of the used function pointers. Add more if you use other ADL APIs
 typedef int ( *ADL_MAIN_CONTROL_CREATE )(ADL_MAIN_MALLOC_CALLBACK, int );
@@ -693,13 +693,13 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 		/* Was able to acquire voltage control information */
 
 		double vmin, vmax, vstep;
-		vmin = (double)voltageControlInfo->iMinValue;
-		vmax = (double)voltageControlInfo->iMaxValue;
-		vstep = (double)voltageControlInfo->iStepValue;
+		vmin = (double)voltageControlInfo->iMinValue/VOLTAGE_DENOMINATOR;
+		vmax = (double)voltageControlInfo->iMaxValue/VOLTAGE_DENOMINATOR;
+		vstep = (double)voltageControlInfo->iStepValue/VOLTAGE_DENOMINATOR;
 
-		printf("Voltage min: %f \n", vmin);
-		printf("Voltage max: %f \n", vmax);
-		printf("Voltage step: %f \n", vstep);
+		printf("Voltage min: %f volts\n", vmin);
+		printf("Voltage max: %f volts\n", vmax);
+		printf("Voltage step: %f volts\n", vstep);
 	}
 
 	char input_str[10] = "";
