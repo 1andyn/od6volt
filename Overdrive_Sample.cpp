@@ -702,18 +702,20 @@ int Overdrive6Sample(int adapterId, HINSTANCE hDLL)
 		printf("Voltage step: %f volts\n", vstep);
 	}
 
-	int * voltageCurr = 0, * voltageDef = 0;
+	int *voltageCurr, *voltageDef;
+	voltageCurr = new int;
+	voltageDef = new int;
+
 	if( ADL_OK != ADL_Overdrive6_VoltageControl_Get(adapterId, voltageCurr, voltageDef)) {
 		printf("Failed to retrieve voltage control data\n");
 		return 0;
 	} else {
-
 		double vcurr, vdef;
-		vcurr = (double)*voltageCurr/VOLTAGE_DENOMINATOR;
-		vdef = (double)*voltageDef/VOLTAGE_DENOMINATOR;
+		vcurr = ((double)*voltageCurr/VOLTAGE_DENOMINATOR);
+		vdef = ((double)*voltageDef/VOLTAGE_DENOMINATOR);
 
-		printf("Current Voltage: %f volts\n", vcurr);
-		printf("Default Voltage: %f volts\n", vdef);
+		printf("Current Voltage: %d volts\n", *voltageCurr);
+		printf("Default Voltage: %d volts\n", *voltageDef);
 	}
 
 	char input_str[10] = "";
